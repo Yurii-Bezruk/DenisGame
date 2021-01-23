@@ -17,6 +17,7 @@ public class Task {
 	
 	/**
 	 * Returns the current task state.
+	 * 
 	 * @return {@code true} if the task is completed, {@code false} otherwise. 
 	 */
 	public boolean isCompleted() {
@@ -25,6 +26,7 @@ public class Task {
 	
 	/**
 	 * Returns true if the type of task is blank (task without mission).
+	 * 
 	 * @return {@code true} if the task is blank (task text equals "---"),
 	 * {@code false} otherwise. 
 	 */
@@ -41,6 +43,7 @@ public class Task {
 	
 	/**
 	 * Returns current task text (mission).
+	 * 
 	 * @return {@code taskText value}
 	 */
 	public String getTaskText() {
@@ -49,6 +52,7 @@ public class Task {
 	
 	/**
 	 * Sets task text by given string.
+	 * 
 	 * @param taskText String, which should be set as current task text (mission).
 	 */
 	public void setTaskText(String taskText) {
@@ -60,16 +64,38 @@ public class Task {
 	 * task text and final symbol, which represents task state (+ if <strong>completed</strong>
 	 * ; - otherwise), for example:
 	 * 		"Play the guitar!) -"
+	 * 
 	 * @return string representation of task.
 	 */
 	@Override
 	public String toString() {
 		return taskText + (completed ? " +" : " -");
 	}
+	
+	/**
+	 * Returns the hash-code for object using {@link Objects#hash(Object...)} method.
+	 * 
+	 * @return hash-code for this Task object
+	 * @see java.util.Objects#hash(Object...)
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(completed, taskText);
 	}
+	
+	/**
+	 * Returns {@code true} if the argument and this object are equal. Method is auto-generated
+	 * using Eclipse IDE according to standards of equals() writing: comparing the links
+	 * of object (object and parameter a the same object), checking whether parameter is
+	 * {@code null}, comparing the classes and, eventually, fields, using 
+	 * {@link Objects#equals(Object, Object)}.
+	 * 
+	 * @param obj an object to be compared with this task object for equality
+	 * @return {@code true} if objects are equal, {@code false} otherwise.
+	 * @see java.lang.Object#equals(Object)
+	 * @see java.util.Objects#equals(Object, Object)
+	 * @see java.lang.Class 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
