@@ -2,6 +2,11 @@ package back;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * 
+ * @author Yurii Bezruk
+ * @version 1.0
+ */
 public class Player {
 	private Task[] tasks;
 	private String name;
@@ -35,9 +40,6 @@ public class Player {
 	public Task getTask(int number) {
 		return tasks[number-1];
 	}
-//	public void completeTask(int number){
-//		tasks[number-1].complete();
-//	}
 	public void printTasks() {
 		System.out.println(name+" tasks state: ");
 		for (int i = 0; i < tasks.length; i++) 
