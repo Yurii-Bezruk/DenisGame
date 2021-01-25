@@ -8,8 +8,8 @@ public class Application {
 	private static int MAX_TASK_COUNT = 10;			//общее количество заданий
 	private static int TASK_COUNT = 3;			//сколько из них являются непустыми заданиями
 	private static final double WIN_POINTS = MAX_TASK_COUNT;		//сколько нужно очков для победы
-	private static double TASK_POINTS = WIN_POINTS / TASK_COUNT + 0.01;		//сколько очков даётся за выполненное задание
-	private static double BLANK_POINTS = WIN_POINTS / (MAX_TASK_COUNT - TASK_COUNT)  + 0.01;	//сколько очков дается за пустое задание. 
+	private static double TASK_POINTS = WIN_POINTS / TASK_COUNT + 0.001;		//сколько очков даётся за выполненное задание
+	private static double BLANK_POINTS = WIN_POINTS / (MAX_TASK_COUNT - TASK_COUNT)  + 0.001;	//сколько очков дается за пустое задание. 
 	//очки рассчитаны таким образом, что выполнение всех заданий или выбивание всех пустых заданий приносит победу.
 	
 	private static Player player1;
