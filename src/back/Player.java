@@ -90,7 +90,7 @@ public class Player {
 	}
 	
 	/**
-	 * Utility method for printing all player's tasks' state using overrided method Task.toString()
+	 * Utility method for printing all player's tasks' state using overridden method Task.toString()
 	 * such as:				<br>
 	 * 1. Play the guitar + <br>
 	 * 2. --- -				<br>
