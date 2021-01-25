@@ -4,14 +4,9 @@ import back.PlayerWinSignal;
 import back.Task;
 import validation.ValidScanner;
 
-public class Application {
-	private static int MAX_TASK_COUNT = 10;			//общее количество заданий
-	private static int TASK_COUNT = 3;			//сколько из них являются непустыми заданиями
-	private static final double WIN_POINTS = MAX_TASK_COUNT;		//сколько нужно очков для победы
-	private static double TASK_POINTS = WIN_POINTS / TASK_COUNT + 0.001;		//сколько очков даётся за выполненное задание
-	private static double BLANK_POINTS = WIN_POINTS / (MAX_TASK_COUNT - TASK_COUNT)  + 0.001;	//сколько очков дается за пустое задание. 
-	//очки рассчитаны таким образом, что выполнение всех заданий или выбивание всех пустых заданий приносит победу.
-	
+import static back.Settings.*;
+
+public class Application {	
 	private static Player player1;
 	private static Player player2;
 	private static ValidScanner scanner;
@@ -21,8 +16,8 @@ public class Application {
 		scanner.setValidMin(1);
 		scanner.setValidMax(MAX_TASK_COUNT);
 		
-		player1 = new Player("Anna", MAX_TASK_COUNT);
-		player2 = new Player("Yurii", MAX_TASK_COUNT);
+		player1 = new Player(PLAYER_1_NAME, MAX_TASK_COUNT);
+		player2 = new Player(PLAYER_2_NAME, MAX_TASK_COUNT);
 		
 		System.out.println("Hello! You are in Denis game :-). Press ENTER to start...");
 		scanner.next();
@@ -50,6 +45,10 @@ public class Application {
 			number = scanner.nextInt();
 			System.out.println("Enter your task:");
 			String task = scanner.nextLine();
+			if(! player.getTask(number).isBlank()) {
+				System.out.println("Overwriting old task");
+				i--;
+			}
 			player.setTask(number, task);
 		}
 	}
