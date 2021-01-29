@@ -1,10 +1,6 @@
 package front;
-import back.Player;
-import back.PlayerWinSignal;
-import back.Task;
-import validation.ValidScanner;
-
-import static back.Settings.*;
+import back.*;
+import validation.*;
 
 public class Application {	
 	private static Player player1;
@@ -14,10 +10,16 @@ public class Application {
 	public static void main(String[] args) {
 		scanner = new ValidScanner(System.in);
 		scanner.setValidMin(1);
-		scanner.setValidMax(MAX_TASK_COUNT);
+		scanner.setValidMax(Settings.MAX_TASK_COUNT);
 		
-		player1 = new Player(PLAYER_1_NAME, MAX_TASK_COUNT);
-		player2 = new Player(PLAYER_2_NAME, MAX_TASK_COUNT);
+		Settings.PLAYER_1_NAME = "Yurii";
+		Settings.PLAYER_2_NAME = "Anna";
+		Settings.MAX_TASK_COUNT = 5;
+		Settings.TASK_COUNT = 2;
+		Settings.refresh();
+		
+		player1 = new Player(Settings.PLAYER_1_NAME, Settings.MAX_TASK_COUNT);
+		player2 = new Player(Settings.PLAYER_2_NAME, Settings.MAX_TASK_COUNT);
 		
 		System.out.println("Hello! You are in Denis game :-). Press ENTER to start...");
 		scanner.next();
@@ -39,25 +41,28 @@ public class Application {
 	}
 	private static void establishTasks(Player player) {
 		System.out.println(player.getName()+", enter your tasks: ");
-		for(int i = 0; i < TASK_COUNT; i++) {
+		for(int i = 0; i < Settings.TASK_COUNT; i++) {
 			System.out.println("Enter number of task:");
 			int number;
 			number = scanner.nextInt();
 			System.out.println("Enter your task:");
 			String task = scanner.nextLine();
 			if(! player.getTask(number).isBlank()) {
-				System.out.println("Overwriting old task");
 				i--;
+				System.out.print("You want overwrite previous task? Enter Y/N: ");
+				String answer = scanner.next();
+				if(answer.equals("Y") || answer.equals("y")) {
+					System.out.println("Overwriting old task");					
+				}
+				else {
+					continue;
+				}
 			}
 			player.setTask(number, task);
 		}
 	}
 	private static void doTask(Player player) throws PlayerWinSignal{		
-		Player other;
-		if(player.equals(player1))
-			other = player2;
-		else
-			other = player1;
+		Player other = (player.equals(player1) ? player2 : player1);		
 		
 		System.out.println(player.getName()+", choose the task number:");
 		int number;
@@ -72,7 +77,7 @@ public class Application {
 			else if(task.isBlank()) {
 				System.out.println("The task is blank!))");
 				task.complete();
-				player.appendPoints(BLANK_POINTS);
+				player.appendPoints(Settings.BLANK_POINTS);
 				break;
 			}
 			else {
@@ -82,14 +87,14 @@ public class Application {
 						+ " or DENIAL if player denied.");
 				if(scanner.next().equals("COMPLETE")) {
 					task.complete();
-					player.appendPoints(TASK_POINTS);
+					player.appendPoints(Settings.TASK_POINTS);
 					break;
 				}
 				else 
 					throw new PlayerWinSignal(other);				
 			}			
 		}while(true);		
-		if(player.getPoints() >= WIN_POINTS) 
+		if(player.getPoints() >= Settings.WIN_POINTS) 
 			throw new PlayerWinSignal(player);
 		
 	}
