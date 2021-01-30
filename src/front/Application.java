@@ -20,7 +20,9 @@ public class Application {
 		
 		player1 = new Player(Settings.PLAYER_1_NAME, Settings.MAX_TASK_COUNT);
 		player2 = new Player(Settings.PLAYER_2_NAME, Settings.MAX_TASK_COUNT);
-		
+		startGame();		
+	}
+	public static void startGame() {
 		System.out.println("Hello! You are in Denis game :-). Press ENTER to start...");
 		scanner.next();
 		establishTasks(player1);
