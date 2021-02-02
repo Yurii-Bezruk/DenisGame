@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
 		setSize(frameWidth, frameHeight);
 		//establishing frame to center
 		setLocationRelativeTo(null);
-		setIconImage(new ImageIcon("D://EclipceProjects//DenisGame//MIR_FULL_DSC_3915.jpg").getImage());
+		setIconImage(new ImageIcon("MIR_FULL_DSC_3915.jpg").getImage());
 		setTitle("DenisGame");
 		setResizable(false);
 		
