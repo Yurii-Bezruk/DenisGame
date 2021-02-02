@@ -1,11 +1,10 @@
 package front;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+
+import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
-import javax.xml.stream.events.StartDocument;
+
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 2269971701250845501L;
@@ -18,7 +17,6 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		toFront();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = (int)(screenSize.width/1.5);
 		frameHeight = (int)(screenSize.height/1.5);
@@ -35,6 +33,7 @@ public class MainFrame extends JFrame {
 		add(mainPanel);
 		
 		setVisible(true);
+		toFront();
 	}
 	
 	private void addingContent() {
@@ -43,21 +42,44 @@ public class MainFrame extends JFrame {
 		int startButtonHeight = (int)frameHeight/7;
 		int startXCoord = (int)((frameWidth - startButtonWidth)/2);
 		int startYCoord = (int)((frameHeight - startButtonHeight)/2);
-		createButton(startButton, "Start", startButtonWidth, startButtonHeight, startXCoord, startYCoord);
+		ActionListener startButtonListener = new StartButtonListener();
+		createButton(startButton, "Start", startButtonListener, startButtonWidth, startButtonHeight, startXCoord, startYCoord);
 		//settings button
 		int settingsButtonWidth = (int)frameWidth/9;
 		int settingsButtonHeight = (int)frameHeight/9;
 		int settingsXCoord = (int)((frameWidth - settingsButtonWidth)/2);
 		int settingsYCoord = startYCoord + startButtonHeight + settingsButtonHeight;
-		createButton(settingsButton, "Settings", settingsButtonWidth, settingsButtonHeight, settingsXCoord, settingsYCoord);
+		ActionListener settingsButtonListener = new SettingsButtonListener();
+		createButton(settingsButton, "Settings", settingsButtonListener, settingsButtonWidth, settingsButtonHeight, settingsXCoord, settingsYCoord);
 	}
 	
-	private void createButton(JButton button, String name, int width, int height, int xCoord, int yCoord) {
+	private void createButton(JButton button, String name, ActionListener listener, int width, int height, int xCoord, int yCoord) {
 		button = new JButton(name);
 		button.setBounds(xCoord, yCoord, width, height);
+		button.addActionListener(listener);
 		mainPanel.add(button);
 	}
 	
+	private class StartButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			Application.startGame();
+		}
+	}
+	private class SettingsButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			/*
+			 * открытие окна настроек
+			 */
+		}
+	}
+//	class Player1NameListener implements TextListener{
+//		@Override
+//		public void textValueChanged(TextEvent e) {
+//			Settings.PLAYER_1_NAME = ""; //= something		
+//		}	
+//	}
 //	private void createStartButton() {
 //		JButton startButton = new JButton("Start");
 //		int buttonWidth = (int)frameWidth/7;
@@ -73,11 +95,7 @@ public class MainFrame extends JFrame {
 //		settingsButton.setBounds((int)((frameWidth - buttonWidth)/2), (int)((frameHeight - buttonHeight)/2), buttonWidth, buttonHeight);
 //		mainPanel.add(settingsButton);
 //	}
-	
-	public static void main(String[] args) {
-		MainFrame frame = new MainFrame();
-	}
-	
+		
 }
 
 /*//Set the frame icon to an image loaded from a file.

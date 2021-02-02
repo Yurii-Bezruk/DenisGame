@@ -10,7 +10,7 @@ public final class Settings {
 	public static double BLANK_POINTS = evaluateBlankPoints();	//сколько очков дается за пустое задание. 
 	//очки рассчитаны таким образом, что выполнение всех заданий или выбивание всех пустых заданий приносит победу.
 	
-	public static void refresh() {
+	public static void apply() {
 		WIN_POINTS = MAX_TASK_COUNT;	
 		TASK_POINTS = evaluateTaskPoints();
 		BLANK_POINTS = evaluateBlankPoints();

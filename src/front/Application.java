@@ -7,6 +7,7 @@ public class Application {
 	private static Player player1;
 	private static Player player2;
 	private static ValidScanner scanner;
+	private static MainFrame frame;
 	
 	public static void main(String[] args) {
 		scanner = new ValidScanner(System.in);
@@ -17,11 +18,12 @@ public class Application {
 		Settings.PLAYER_2_NAME = "Anna";
 		Settings.MAX_TASK_COUNT = 5;
 		Settings.TASK_COUNT = 2;
-		Settings.refresh();
+		Settings.apply();
 		
 		player1 = new Player(Settings.PLAYER_1_NAME, Settings.MAX_TASK_COUNT);
 		player2 = new Player(Settings.PLAYER_2_NAME, Settings.MAX_TASK_COUNT);
-		startGame();		
+		
+		frame = new MainFrame();		
 	}
 	public static void startGame() {
 		System.out.println("Hello! You are in Denis game :-). Press ENTER to start...");
