@@ -13,7 +13,8 @@ public class MainFrame extends JFrame {
 	private int frameWidth;
 	private int frameHeight;
 	private JButton startButton;
-	private JButton settingsButton;	
+	private JButton settingsButton;
+	private JLabel welcomeLabel;
 	
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -43,18 +44,24 @@ public class MainFrame extends JFrame {
 		int startXCoord = (int)((frameWidth - startButtonWidth)/2);
 		int startYCoord = (int)((frameHeight - startButtonHeight)/2);
 		ActionListener startButtonListener = new StartButtonListener();
-		createButton(startButton, "Start", startButtonListener, startButtonWidth, startButtonHeight, startXCoord, startYCoord);
+		startButton = new JButton("Start");
+		createButton(startButton, startButtonListener, startButtonWidth, startButtonHeight, startXCoord, startYCoord);
 		//settings button
 		int settingsButtonWidth = (int)frameWidth/9;
 		int settingsButtonHeight = (int)frameHeight/9;
 		int settingsXCoord = (int)((frameWidth - settingsButtonWidth)/2);
 		int settingsYCoord = startYCoord + startButtonHeight + settingsButtonHeight;
 		ActionListener settingsButtonListener = new SettingsButtonListener();
-		createButton(settingsButton, "Settings", settingsButtonListener, settingsButtonWidth, settingsButtonHeight, settingsXCoord, settingsYCoord);
+		settingsButton = new JButton("Settings");
+		createButton(settingsButton, settingsButtonListener, settingsButtonWidth, settingsButtonHeight, settingsXCoord, settingsYCoord);
+		
+		welcomeLabel = new JLabel("Hello! You are in Denis game :-). Press ENTER to start...");
+		welcomeLabel.setBounds(startXCoord - settingsButtonWidth, startYCoord, startButtonWidth*3, startButtonHeight);
+		welcomeLabel.setVisible(false);
+		mainPanel.add(welcomeLabel);
 	}
 	
-	private void createButton(JButton button, String name, ActionListener listener, int width, int height, int xCoord, int yCoord) {
-		button = new JButton(name);
+	private void createButton(JButton button, ActionListener listener, int width, int height, int xCoord, int yCoord) {
 		button.setBounds(xCoord, yCoord, width, height);
 		button.addActionListener(listener);
 		mainPanel.add(button);
@@ -63,7 +70,15 @@ public class MainFrame extends JFrame {
 	private class StartButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			Application.startGame();
+			startButton.setVisible(false);
+			settingsButton.setVisible(false);
+			welcomeLabel.setVisible(true);
+			repaint();
+//			try {
+//				java.lang.Thread.sleep(5000);
+//			} catch (InterruptedException e) {}
+			//Application.startGame();
+			
 		}
 	}
 	private class SettingsButtonListener implements ActionListener {

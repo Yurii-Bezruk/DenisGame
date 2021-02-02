@@ -26,8 +26,6 @@ public class Application {
 		frame = new MainFrame();		
 	}
 	public static void startGame() {
-		System.out.println("Hello! You are in Denis game :-). Press ENTER to start...");
-		scanner.next();
 		establishTasks(player1);
 		establishTasks(player2);
 		
