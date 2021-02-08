@@ -10,8 +10,8 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 2269971701250845501L;
 	private JPanel mainPanel = new JPanel();
 	
-	private int frameWidth;
-	private int frameHeight;
+//	private int frameWidth;
+//	private int frameHeight;
 	private JButton startButton;
 	private JButton settingsButton;
 	private JLabel welcomeLabel;
@@ -19,46 +19,43 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		frameWidth = (int)(screenSize.width/1.5);
-		frameHeight = (int)(screenSize.height/1.5);
-		setSize(frameWidth, frameHeight);
-		//establishing frame to center
+		setSize((int)(screenSize.width/1.5), (int)(screenSize.height/1.5));
 		setLocationRelativeTo(null);
-		setIconImage(new ImageIcon("MIR_FULL_DSC_3915.jpg").getImage());
+		setIconImage(new ImageIcon("icon.jpg").getImage());
 		setTitle("DenisGame");
-		setResizable(false);
-		
-		mainPanel.setLayout(null);
-		
-		addingContent();
-		add(mainPanel);
+		setResizable(false);		
+			
+		addingContent();		
 		
 		setVisible(true);
 		toFront();
 	}
 	
 	private void addingContent() {
+		mainPanel.setLayout(null);	
 		//start button
-		int startButtonWidth = (int)frameWidth/7;
-		int startButtonHeight = (int)frameHeight/7;
-		int startXCoord = (int)((frameWidth - startButtonWidth)/2);
-		int startYCoord = (int)((frameHeight - startButtonHeight)/2);
+		int width = (int) (this.getWidth()/7);
+		int height = (int) (this.getHeight()/7);
+		int x = (int)((this.getWidth() - width)/2);
+		int y = (int)((this.getHeight() - height)/2);
 		ActionListener startButtonListener = new StartButtonListener();
 		startButton = new JButton("Start");
-		createButton(startButton, startButtonListener, startButtonWidth, startButtonHeight, startXCoord, startYCoord);
+		createButton(startButton, startButtonListener, width, height, x, y);
 		//settings button
-		int settingsButtonWidth = (int)frameWidth/9;
-		int settingsButtonHeight = (int)frameHeight/9;
-		int settingsXCoord = (int)((frameWidth - settingsButtonWidth)/2);
-		int settingsYCoord = startYCoord + startButtonHeight + settingsButtonHeight;
+		width = (int) (this.getWidth()/9);
+		height = (int) (this.getHeight()/9);
+		x = (int)((this.getWidth() - width)/2);
+		y = startButton.getY() + startButton.getHeight() + height;
 		ActionListener settingsButtonListener = new SettingsButtonListener();
 		settingsButton = new JButton("Settings");
-		createButton(settingsButton, settingsButtonListener, settingsButtonWidth, settingsButtonHeight, settingsXCoord, settingsYCoord);
+		createButton(settingsButton, settingsButtonListener, width, height, x, y);
 		
 		welcomeLabel = new JLabel("Hello! You are in Denis game :-). Press ENTER to start...");
-		welcomeLabel.setBounds(startXCoord - settingsButtonWidth, startYCoord, startButtonWidth*3, startButtonHeight);
+		welcomeLabel.setBounds(startButton.getX() - settingsButton.getWidth(), startButton.getY(), width*3, height);
 		welcomeLabel.setVisible(false);
 		mainPanel.add(welcomeLabel);
+		
+		add(mainPanel);
 	}
 	
 	private void createButton(JButton button, ActionListener listener, int width, int height, int xCoord, int yCoord) {
@@ -112,7 +109,3 @@ public class MainFrame extends JFrame {
 //	}
 		
 }
-
-/*//Set the frame icon to an image loaded from a file.
- * Image img = new ImageIcon("*fileName*").getImage();
- * frame.setIconImage(new ImageIcon(imgURL).getImage());*/
