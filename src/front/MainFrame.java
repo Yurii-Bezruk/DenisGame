@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
 		setResizable(false);		
 			
 		addingContent();		
-		
+				
 		setVisible(true);
 		toFront();
 	}
@@ -37,31 +37,32 @@ public class MainFrame extends JFrame {
 		int width = (int) (this.getWidth()/7);
 		int height = (int) (this.getHeight()/7);
 		int x = (int)((this.getWidth() - width)/2);
-		int y = (int)((this.getHeight() - height)/2);
-		ActionListener startButtonListener = new StartButtonListener();
-		startButton = new JButton("Start");
-		createButton(startButton, startButtonListener, width, height, x, y);
+		int y = (int)((this.getHeight() - height)/2);		
+		startButton = createButton("Start", new StartButtonListener(), width, height, x, y);
+		mainPanel.add(startButton);
+		
 		//settings button
 		width = (int) (this.getWidth()/9);
 		height = (int) (this.getHeight()/9);
 		x = (int)((this.getWidth() - width)/2);
 		y = startButton.getY() + startButton.getHeight() + height;
-		ActionListener settingsButtonListener = new SettingsButtonListener();
-		settingsButton = new JButton("Settings");
-		createButton(settingsButton, settingsButtonListener, width, height, x, y);
+		settingsButton = createButton("Settings", new SettingsButtonListener(), width, height, x, y);
+		mainPanel.add(settingsButton);
 		
 		welcomeLabel = new JLabel("Hello! You are in Denis game :-). Press ENTER to start...");
-		welcomeLabel.setBounds(startButton.getX() - settingsButton.getWidth(), startButton.getY(), width*3, height);
+		welcomeLabel.setBounds(startButton.getX() - startButton.getWidth(), startButton.getY(), startButton.getWidth()*3, height);
 		welcomeLabel.setVisible(false);
 		mainPanel.add(welcomeLabel);
 		
+		mainPanel.addKeyListener(new EnterKeyListener());
 		add(mainPanel);
 	}
 	
-	private void createButton(JButton button, ActionListener listener, int width, int height, int xCoord, int yCoord) {
-		button.setBounds(xCoord, yCoord, width, height);
+	private JButton createButton(String text, ActionListener listener, int width, int height, int x, int y) {
+		JButton button = new JButton(text); 
+		button.setBounds(x, y, width, height);
 		button.addActionListener(listener);
-		mainPanel.add(button);
+		return button;
 	}
 	
 	private class StartButtonListener implements ActionListener {
@@ -70,14 +71,29 @@ public class MainFrame extends JFrame {
 			startButton.setVisible(false);
 			settingsButton.setVisible(false);
 			welcomeLabel.setVisible(true);
-			repaint();
-//			try {
-//				java.lang.Thread.sleep(5000);
-//			} catch (InterruptedException e) {}
-			//Application.startGame();
-			
+			repaint();			
 		}
 	}
+	
+	private class EnterKeyListener implements KeyListener {
+		@Override
+		public void keyPressed(KeyEvent event) {
+			if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+				Application.startGame();
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent event) {
+			if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+				Application.startGame();
+			}
+		}
+
+		@Override
+		public void keyTyped(KeyEvent event) {}		
+	}
+	
 	private class SettingsButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
@@ -92,20 +108,6 @@ public class MainFrame extends JFrame {
 //			Settings.PLAYER_1_NAME = ""; //= something		
 //		}	
 //	}
-//	private void createStartButton() {
-//		JButton startButton = new JButton("Start");
-//		int buttonWidth = (int)frameWidth/7;
-//		int buttonHeight = (int)frameHeight/7;
-//		startButton.setBounds((int)((frameWidth - buttonWidth)/2), (int)((frameHeight - buttonHeight)/2), buttonWidth, buttonHeight);
-//		mainPanel.add(startButton);
-//	}
-//	
-//	private void createSettingsButton() {
-//		JButton settingsButton = new JButton("Settings");
-//		int buttonWidth = (int)frameWidth/9;
-//		int buttonHeight = (int)frameHeight/8;
-//		settingsButton.setBounds((int)((frameWidth - buttonWidth)/2), (int)((frameHeight - buttonHeight)/2), buttonWidth, buttonHeight);
-//		mainPanel.add(settingsButton);
-//	}
+
 		
 }
