@@ -9,9 +9,6 @@ import javax.swing.*;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 2269971701250845501L;
 	private JPanel mainPanel = new JPanel();
-	
-//	private int frameWidth;
-//	private int frameHeight;
 	private JButton startButton;
 	private JButton settingsButton;
 	private JLabel welcomeLabel;
@@ -33,7 +30,6 @@ public class MainFrame extends JFrame {
 	
 	private void addingContent() {
 		mainPanel.setLayout(null);	
-		//start button
 		int width = (int) (this.getWidth()/7);
 		int height = (int) (this.getHeight()/7);
 		int x = (int)((this.getWidth() - width)/2);
@@ -41,7 +37,6 @@ public class MainFrame extends JFrame {
 		startButton = createButton("Start", new StartButtonListener(), width, height, x, y);
 		mainPanel.add(startButton);
 		
-		//settings button
 		width = (int) (this.getWidth()/9);
 		height = (int) (this.getHeight()/9);
 		x = (int)((this.getWidth() - width)/2);
@@ -54,7 +49,6 @@ public class MainFrame extends JFrame {
 		welcomeLabel.setVisible(false);
 		mainPanel.add(welcomeLabel);
 		
-		mainPanel.addKeyListener(new EnterKeyListener());
 		add(mainPanel);
 	}
 	
@@ -75,24 +69,6 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
-	private class EnterKeyListener implements KeyListener {
-		@Override
-		public void keyPressed(KeyEvent event) {
-			if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-				Application.startGame();
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent event) {
-			if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-				Application.startGame();
-			}
-		}
-
-		@Override
-		public void keyTyped(KeyEvent event) {}		
-	}
 	
 	private class SettingsButtonListener implements ActionListener {
 		@Override
