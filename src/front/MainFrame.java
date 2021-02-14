@@ -44,9 +44,8 @@ public class MainFrame extends JFrame {
 		settingsButton = createButton("Settings", new SettingsButtonListener(), width, height, x, y);
 		mainPanel.add(settingsButton);
 		
-		welcomeLabel = new JLabel("Hello! You are in Denis game :-). Press ENTER to start...");
-		welcomeLabel.setBounds(startButton.getX() - startButton.getWidth(), startButton.getY(), startButton.getWidth()*3, height);
-		welcomeLabel.setVisible(false);
+		welcomeLabel = new JLabel("Hello! You are in Denis game :-). Press Start to play))");
+		welcomeLabel.setBounds(startButton.getX() - startButton.getWidth()/2, startButton.getY() - startButton.getHeight(), startButton.getWidth()*3, height);
 		mainPanel.add(welcomeLabel);
 		
 		add(mainPanel);
@@ -62,9 +61,9 @@ public class MainFrame extends JFrame {
 	private class StartButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			startButton.setVisible(false);
-			settingsButton.setVisible(false);
-			welcomeLabel.setVisible(true);
+			mainPanel.remove(startButton);
+			mainPanel.remove(settingsButton);
+			mainPanel.remove(welcomeLabel);
 			repaint();			
 		}
 	}
