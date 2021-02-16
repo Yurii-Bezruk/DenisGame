@@ -29,33 +29,36 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void addingContent() {
-		mainPanel.setLayout(null);	
-		int width = (int) (this.getWidth()/7);
-		int height = (int) (this.getHeight()/7);
-		int x = (int)((this.getWidth() - width)/2);
-		int y = (int)((this.getHeight() - height)/2);		
-		startButton = createButton("Start", new StartButtonListener(), width, height, x, y);
+		mainPanel.setLayout(null);
+		Rectangle bounds = new Rectangle();
+		bounds.width = (int) (this.getWidth()/7);
+		bounds.height = (int) (this.getHeight()/7);
+		bounds.x = (int)((this.getWidth() - bounds.width)/2);
+		bounds.y = (int)((this.getHeight() - bounds.height)/2);		
+		startButton = new Button("Start game", new StartButtonListener(), bounds);
 		mainPanel.add(startButton);
 		
-		width = (int) (this.getWidth()/9);
-		height = (int) (this.getHeight()/9);
-		x = (int)((this.getWidth() - width)/2);
-		y = startButton.getY() + startButton.getHeight() + height;
-		settingsButton = createButton("Settings", new SettingsButtonListener(), width, height, x, y);
+		bounds.width = (int) (this.getWidth()/9);
+		bounds.height = (int) (this.getHeight()/9);
+		bounds.x = (int)((this.getWidth() - bounds.width)/2);
+		bounds.y = startButton.getY() + startButton.getHeight() + bounds.height;
+		settingsButton = new Button("Settings", new SettingsButtonListener(), bounds);
 		mainPanel.add(settingsButton);
 		
 		welcomeLabel = new JLabel("Hello! You are in Denis game :-). Press Start to play))");
-		welcomeLabel.setBounds(startButton.getX() - startButton.getWidth()/2, startButton.getY() - startButton.getHeight(), startButton.getWidth()*3, height);
+		welcomeLabel.setBounds(startButton.getX() - startButton.getWidth()/2, startButton.getY() - startButton.getHeight(), startButton.getWidth()*3, bounds.height);
 		mainPanel.add(welcomeLabel);
 		
 		add(mainPanel);
 	}
 	
-	private JButton createButton(String text, ActionListener listener, int width, int height, int x, int y) {
-		JButton button = new JButton(text); 
-		button.setBounds(x, y, width, height);
-		button.addActionListener(listener);
-		return button;
+	private class Button extends JButton{
+		private static final long serialVersionUID = -1481865445568228684L;		
+		public Button(String text, ActionListener listener, Rectangle bounds) {
+			super(text);
+			setBounds(bounds);
+			addActionListener(listener);
+		}		
 	}
 	
 	private class StartButtonListener implements ActionListener {
