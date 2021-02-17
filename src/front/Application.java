@@ -16,7 +16,7 @@ public class Application {
 		
 		Settings.PLAYER_1_NAME = "Yurii";
 		Settings.PLAYER_2_NAME = "Anna";
-		Settings.MAX_TASK_COUNT = 5;
+		Settings.MAX_TASK_COUNT = 10;
 		Settings.TASK_COUNT = 2;
 		Settings.apply();
 		

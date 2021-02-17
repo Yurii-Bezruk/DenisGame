@@ -5,13 +5,21 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import back.Settings;
+
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 2269971701250845501L;
-	private JPanel mainPanel = new JPanel();
+	private JPanel mainPanel;
 	private JButton startButton;
 	private JButton settingsButton;
 	private JLabel welcomeLabel;
+	private TaskPanel taskPanel;
+	
+	//private JPanel[] taskPanels;
+//	private JTextField[] taskFields;
+//	private JLabel[] numberLabels;
+	
 	
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -29,6 +37,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void addingContent() {
+		mainPanel = new MainPanel() ;
 		mainPanel.setLayout(null);
 		Rectangle bounds = new Rectangle();
 		bounds.width = (int) (this.getWidth()/7);
@@ -49,9 +58,34 @@ public class MainFrame extends JFrame {
 		welcomeLabel.setBounds(startButton.getX() - startButton.getWidth()/2, startButton.getY() - startButton.getHeight(), startButton.getWidth()*3, bounds.height);
 		mainPanel.add(welcomeLabel);
 		
+		
+		
 		add(mainPanel);
 	}
-	
+	private void addTaskPanel(TaskPanel panel) {
+		for (JTextField field : panel.getTextFields()) {
+			mainPanel.add(field);
+		}
+		for (JLabel label : panel.getLabels()) {
+			mainPanel.add(label);
+		}
+	}
+	private class MainPanel extends JPanel{
+		private static final long serialVersionUID = 7297869661769714605L;
+		
+		public void add(TaskPanel panel) {
+//			for (Component component : panel.getComponents()) {
+//				this.add(component);
+//			}
+			for (JTextField field : panel.getTextFields()) {
+				this.add(field);
+			}
+			for (JLabel label : panel.getLabels()) {
+				this.add(label);
+			}
+		}
+		
+	}
 	private class Button extends JButton{
 		private static final long serialVersionUID = -1481865445568228684L;		
 		public Button(String text, ActionListener listener, Rectangle bounds) {
@@ -67,10 +101,23 @@ public class MainFrame extends JFrame {
 			mainPanel.remove(startButton);
 			mainPanel.remove(settingsButton);
 			mainPanel.remove(welcomeLabel);
+			//welcomeLabel = new JLabel("Enter "+Settings.TASK_COUNT+" tasks, other will be blank:");
+//			welcomeLabel.setBounds(taskFields[0].getWidth() / 2,
+//								   taskFields[0].getY() - (int) (taskFields[0].getHeight() * 1.5),
+//								   taskFields[0].getWidth(),
+//								   taskFields[0].getHeight());
+			
+			//mainPanel.add(welcomeLabel);
+//			for (int i = 0; i < Settings.MAX_TASK_COUNT; i++) {	
+//				mainPanel.add(taskFields[i]);
+//				mainPanel.add(numberLabels[i]);
+//			}
+			//mainPanel.add(taskPanel);
+			taskPanel = new TaskPanel(startButton.getX(), startButton.getY(), startButton.getWidth(), startButton.getHeight(), MainFrame.this.getBounds());
+			addTaskPanel(taskPanel);
 			repaint();			
 		}
-	}
-	
+	}	
 	
 	private class SettingsButtonListener implements ActionListener {
 		@Override
@@ -79,13 +126,5 @@ public class MainFrame extends JFrame {
 			 * открытие окна настроек
 			 */
 		}
-	}
-//	class Player1NameListener implements TextListener{
-//		@Override
-//		public void textValueChanged(TextEvent e) {
-//			Settings.PLAYER_1_NAME = ""; //= something		
-//		}	
-//	}
-
-		
+	}		
 }
