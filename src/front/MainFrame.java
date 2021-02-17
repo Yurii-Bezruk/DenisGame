@@ -10,16 +10,11 @@ import back.Settings;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 2269971701250845501L;
-	private JPanel mainPanel;
-	private JButton startButton;
-	private JButton settingsButton;
+	private MainPanel mainPanel;
+	private Button startButton;
+	private Button settingsButton;
 	private JLabel welcomeLabel;
-	private TaskPanel taskPanel;
-	
-	//private JPanel[] taskPanels;
-//	private JTextField[] taskFields;
-//	private JLabel[] numberLabels;
-	
+	private TaskPanel taskPanel;	
 	
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -62,27 +57,13 @@ public class MainFrame extends JFrame {
 		
 		add(mainPanel);
 	}
-	private void addTaskPanel(TaskPanel panel) {
-		for (JTextField field : panel.getTextFields()) {
-			mainPanel.add(field);
-		}
-		for (JLabel label : panel.getLabels()) {
-			mainPanel.add(label);
-		}
-	}
 	private class MainPanel extends JPanel{
 		private static final long serialVersionUID = 7297869661769714605L;
 		
-		public void add(TaskPanel panel) {
-//			for (Component component : panel.getComponents()) {
-//				this.add(component);
-//			}
-			for (JTextField field : panel.getTextFields()) {
-				this.add(field);
-			}
-			for (JLabel label : panel.getLabels()) {
-				this.add(label);
-			}
+		public Component add(TaskPanel panel) {
+			for (Component component : panel.getComponents()) 
+				this.add(component);			
+			return panel;
 		}
 		
 	}
@@ -101,20 +82,17 @@ public class MainFrame extends JFrame {
 			mainPanel.remove(startButton);
 			mainPanel.remove(settingsButton);
 			mainPanel.remove(welcomeLabel);
-			//welcomeLabel = new JLabel("Enter "+Settings.TASK_COUNT+" tasks, other will be blank:");
-//			welcomeLabel.setBounds(taskFields[0].getWidth() / 2,
-//								   taskFields[0].getY() - (int) (taskFields[0].getHeight() * 1.5),
-//								   taskFields[0].getWidth(),
-//								   taskFields[0].getHeight());
 			
-			//mainPanel.add(welcomeLabel);
-//			for (int i = 0; i < Settings.MAX_TASK_COUNT; i++) {	
-//				mainPanel.add(taskFields[i]);
-//				mainPanel.add(numberLabels[i]);
-//			}
-			//mainPanel.add(taskPanel);
-			taskPanel = new TaskPanel(startButton.getX(), startButton.getY(), startButton.getWidth(), startButton.getHeight(), MainFrame.this.getBounds());
-			addTaskPanel(taskPanel);
+			taskPanel = new TaskPanel(startButton.getBounds(), MainFrame.this.getBounds());
+			mainPanel.add(taskPanel);
+			
+			Rectangle bounds = taskPanel.getComponents()[0].getBounds();
+			welcomeLabel = new JLabel("Enter "+Settings.TASK_COUNT+" tasks, other will be blank:");
+			welcomeLabel.setBounds((int) bounds.getWidth() / 2,
+								   (int) bounds.getY() - (int) (bounds.getHeight() * 1.5),
+								   (int) bounds.getWidth(),
+								   (int) bounds.getHeight());			
+			mainPanel.add(welcomeLabel);
 			repaint();			
 		}
 	}	
